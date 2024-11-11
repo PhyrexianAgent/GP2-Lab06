@@ -15,6 +15,7 @@ public partial class SetWaypointsFromHolderAction : Action
     protected override Status OnStart()
     {
         for (int i=0; i<PatrolPointsHolder.Value.transform.childCount; i++){
+            Debug.Log(PatrolPointsHolder.Value.transform.GetChild(i).position);
             Waypoints.Value.Add(PatrolPointsHolder.Value.transform.GetChild(i).gameObject);
         }
         return Status.Running;
