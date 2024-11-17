@@ -871,6 +871,7 @@ MonoBehaviour:
   m_Graph: {fileID: 222698114116764335, guid: d74fa767718ae99399d2aec60c85ea40, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 2980185832240710546
+  - rid: 2980185987480289601
   references:
     version: 2
     RefIds:
@@ -882,6 +883,14 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 1612467810563875513}
+    - rid: 2980185987480289601
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 563956638061904697
+          m_Value1: 10675595305533823466
+        Name: PatrolSpeed
+        m_Value: 2
 --- !u!1 &1626118702622177888
 GameObject:
   m_ObjectHideFlags: 0
