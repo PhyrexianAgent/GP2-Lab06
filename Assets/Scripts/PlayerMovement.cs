@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Min(1)] private float runSpeedMultiplier = 1f;
     private Rigidbody rigidbody;
     private Stamina stamina;
+    private bool waitingForRecharge = false;
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -23,10 +24,12 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        bool sprintPressed = Input.GetKey(KeyCode.LeftShift);
-        stamina.ChangeStaminaFromMovement(rigidbody.linearVelocity != Vector3.zero, sprintPressed);
+        if (waitingForRecharge) waitingForRecharge = !stamina.IsFull();
+        bool running = Input.GetKey(KeyCode.LeftShift) && stamina.CanRun() && !waitingForRecharge;
+        stamina.ChangeStaminaFromMovement(rigidbody.linearVelocity != Vector3.zero, running);
+        if (!waitingForRecharge) waitingForRecharge = !stamina.CanRun();
         rigidbody.linearVelocity = new Vector3();
         movement.Normalize();
-        rigidbody.AddRelativeForce(movement * speed * (sprintPressed ? runSpeedMultiplier : 1));
+        rigidbody.AddRelativeForce(movement * speed * (running ? runSpeedMultiplier : 1));
     }
 }

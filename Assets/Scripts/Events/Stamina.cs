@@ -25,6 +25,8 @@ public class Stamina : MonoBehaviour
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
         PublishStaminaPercentage();
     }
+    public bool CanRun() => currentStamina > 0;
+    public bool IsFull() => currentStamina == maxStamina;
 
     void PublishStaminaPercentage(){
         staminaChannel?.Invoke(currentStamina / maxStamina);
