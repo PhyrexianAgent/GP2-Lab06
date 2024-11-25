@@ -1,8 +1,10 @@
 using UnityEngine;
+using TMPro;
+using System.Collections;
 
 public class ScoreUI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private TextMeshProUGUI scoreText;
     void Start()
     {
         
@@ -12,5 +14,14 @@ public class ScoreUI : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void UpdateScore(){
+        StartCoroutine(UpdateScoreDelayed());
+    }
+
+    private IEnumerator UpdateScoreDelayed(){
+        yield return new WaitForEndOfFrame();
+        scoreText.text = GameManager.Score.ToString();
     }
 }
