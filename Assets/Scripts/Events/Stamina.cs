@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Stamina : MonoBehaviour
 {
-    [SerializeField] private float maxStamina;
     [SerializeField] private FloatEventChannel staminaChannel;
+    [SerializeField, Min(0)] private float maxStamina, sprintDrain, walkingGain, standingGain;
     private float currentStamina;
     
     void Awake(){
@@ -13,8 +13,16 @@ public class Stamina : MonoBehaviour
     {
         PublishStaminaPercentage();
     }
-    public void UpdateStamina(float value){
-        currentStamina = value;
+    public void ChangeStaminaFromMovement(bool isMoving, bool sprintPressed){
+        if (isMoving){
+            if (sprintPressed)
+                currentStamina -= sprintDrain;
+            else
+                currentStamina += walkingGain;
+        }
+        else
+            currentStamina += standingGain;
+        currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
         PublishStaminaPercentage();
     }
 
